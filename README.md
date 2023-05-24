@@ -1,10 +1,10 @@
-# react-native-bluetooch-escpos-printer
+# react-native-bluetooth-escpos-printer
 
 React-Native plugin for the bluetooth ESC/POS & TSC printers.
 
-Any questions or bug please raise a issue.
+Any questions or bug please raise an issue.
 
-##Still under developement
+##Still under development
 
 #May support Android /IOS
 
@@ -37,7 +37,7 @@ Ensure your build files match the following requirements:
 include ':react-native-bluetooth-escpos-printer'
 project(':react-native-bluetooth-escpos-printer').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-bluetooth-escpos-printer/android')
 ```
-2. (React Native 0.59 and lower) Add the *`react-native-bluetooth-escpos-printer`* as an dependency of your app in *`android/app/build.gradle`*:
+2. (React Native 0.59 and lower) Add the *`react-native-bluetooth-escpos-printer`* as a dependency of your app in *`android/app/build.gradle`*:
 ```
 ...
 dependencies {
@@ -62,8 +62,8 @@ Refers to your JS files
 BluetoothManager is the module for Bluetooth service management, supports Bluetooth status check, enable/disable Bluetooth service, scan devices, connect/unpair devices.
 
 * isBluetoothEnabled ==>
-async function, checks whether Bluetooth service is enabled.
-//TODO: consider to return the the devices information already bound and paired here..
+  async function, checks whether Bluetooth service is enabled.
+  //TODO: consider to return the devices information already bound and paired here.
 
 ```javascript
      BluetoothManager.isBluetoothEnabled().then((enabled)=> {
@@ -74,7 +74,7 @@ async function, checks whether Bluetooth service is enabled.
 ```
 
 * enableBluetooth ==> ``` diff + ANDROID ONLY ```
-async function, enables the bluetooth service, returns the devices information already bound and paired.  ``` diff - IOS would just resovle with nil ```
+  async function, enables the bluetooth service, returns the devices information already bound and paired.  ``` diff - IOS would just resovle with nil ```
 
 ```javascript
 BluetoothManager.enableBluetooth().then((r)=>{
@@ -95,7 +95,7 @@ BluetoothManager.enableBluetooth().then((r)=>{
 ```
 
 * disableBluetooth ==>  ``` diff + ANDROID ONLY ```
-async function ,disables the bluetooth service. ``` diff - IOS would just resovle with nil ```
+  async function ,disables the bluetooth service. ``` diff - IOS would just resovle with nil ```
 
 ```javascript
 BluetoothManager.disableBluetooth().then(()=>{
@@ -104,7 +104,7 @@ BluetoothManager.disableBluetooth().then(()=>{
 ```
 
 * scanDevices ==>
-async function , scans the bluetooth devices, returns devices found and paired after scan finish. Event [BluetoothManager.EVENT_DEVICE_ALREADY_PAIRED] would be emitted with devices bound; event [BluetoothManager.EVENT_DEVICE_FOUND] would be emitted (many time) as long as new devices found.
+  async function , scans the bluetooth devices, returns devices found and paired after scan finish. Event [BluetoothManager.EVENT_DEVICE_ALREADY_PAIRED] would be emitted with devices bound; event [BluetoothManager.EVENT_DEVICE_FOUND] would be emitted (many times) as long as new devices found.
 
 samples with events:
 ```javascript
@@ -140,7 +140,7 @@ BluetoothManager.scanDevices()
 ```
 
 * connect ==>
-async function, connects the specified device, if not bound, bound dailog prompts.
+  async function, connects the specified device, if not bound, bound dialog prompts.
 
 ```javascript
 
@@ -160,7 +160,7 @@ async function, connects the specified device, if not bound, bound dailog prompt
 ```
 
 * unpair ==>
-async function, disconnects and unpairs the specified devices
+  async function, disconnects and unpairs the specified devices
 
 ```javascript
      BluetoothManager.connect(rowData.address)
@@ -188,7 +188,7 @@ async function, disconnects and unpairs the specified devices
 The printer for label printing.
 
 * printLabel ==>
-async function that performs the label print action.
+  async function that performs the label print action.
 
 ```javascript
 BluetoothTscPrinter.printLabel(options)
@@ -386,63 +386,63 @@ let options = {
 }
 ```
 ### BluetoothEscposPrinter ###
-  the printer for receipt printing, following ESC/POS command.
+the printer for receipt printing, following ESC/POS command.
 
 #### printerInit() ####
-  init the printer.
+init the printer.
 
 #### printAndFeed(int feed) ####
-  printer the buffer data and feed (feed lines).
+printer the buffer data and feed (feed lines).
 
 #### printerLeftSpace(int sp) ####
-  set the printer left spaces.
+set the printer left spaces.
 
 #### printerLineSpace(int sp) ####
-  set the spaces between lines.
+set the spaces between lines.
 
 #### printerUnderLine(int line) ####
-  set the underline of the text, @param line --  0-off,1-on,2-deeper
+set the underline of the text, @param line --  0-off,1-on,2-deeper
 
 #### printerAlign(int align) ####
-  set the printer alignment, constansts: BluetoothEscposPrinter.ALIGN.LEFT/BluetoothEscposPrinter.ALIGN.CENTER/BluetoothEscposPrinter.ALIGN.RIGHT.
-  Does not work on printPic() method.
+set the printer alignment, constants: BluetoothEscposPrinter.ALIGN.LEFT/BluetoothEscposPrinter.ALIGN.CENTER/BluetoothEscposPrinter.ALIGN.RIGHT.
+Does not work on printPic() method.
 
 #### printText(String text, ReadableMap options) ####
-  print text, options as following:
-  * encoding => text encoding,default GBK.
-  * codepage => codepage using, default 0.
-  * widthtimes => text font mul times in width, default 0.
-  * heigthTimes => text font mul times in height, default 0.
-  * fonttype => text font type, default 0.
+print text, options as following:
+* encoding => text encoding,default GBK.
+* codepage => codepage using, default 0.
+* widthtimes => text font mul times in width, default 0.
+* heigthTimes => text font mul times in height, default 0.
+* fonttype => text font type, default 0.
 
 #### printColumn(ReadableArray columnWidths,ReadableArray columnAligns,ReadableArray columnTexts,ReadableMap options) ####
-  print texts in column, Parameters as following:
-  * columnWidths => int arrays, configs the width of each column, calculate by english character length. ex:the width of "abcdef" is 5 ,the width of "中文" is 4.
-  * columnAligns => arrays, alignment of each column, values is the same of printerAlign().
-  * columnTexts => arrays, the texts of each colunm to print.
-  * options => text print config options, the same of printText() options.
+print texts in column, Parameters as following:
+* columnWidths => int arrays, configs the width of each column, calculate by english character length. ex:the width of "abcdef" is 5 ,the width of "中文" is 4.
+* columnAligns => arrays, alignment of each column, values is the same of printerAlign().
+* columnTexts => arrays, the texts of each column to print.
+* options => text print config options, the same of printText() options.
 
 #### setWidth(int width) ####
-  sets the width of the printer.
+sets the width of the printer.
 
 #### printPic(String base64encodeStr,ReadableMap options) ####
-  prints the image which is encoded by base64, without schema.
-  * options: contains the params that may use in printing pic: "width": the pic width, basic on devices width(dots,58mm-384); "left": the left padding of the pic for the printing position adjustment.
+prints the image which is encoded by base64, without schema.
+* options: contains the params that may use in printing pic: "width": the pic width, basic on devices width(dots,58mm-384); "left": the left padding of the pic for the printing position adjustment.
 
-#### setfTest() ####
-  prints the self test.
+#### selfTest() ####
+prints the self test.
 
 #### rotate() ####
-  sets the rotation of the line.
+sets the rotation of the line.
 
 #### setBlob(int weight) ####
-  sets blob of the line.
+sets blob of the line.
 
 #### printQRCode(String content, int size, int correctionLevel) ####
-  prints the qrcode.
+prints the qrcode.
 
 #### printBarCode(String str,int nType, int nWidthX, int nHeight, int nHriFontType, int nHriFontPosition) ####
-  prints the barcode.
+prints the barcode.
 
 ### Demos of printing a receipt ###
 ```javascript
