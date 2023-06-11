@@ -44,8 +44,8 @@ declare module '@cococart/react-native-bluetooth-escpos-printer' {
         }
 
         interface IPrintPicOptions {
-            width: number;
-            left: number;
+            width?: number;
+            left?: number;
         }
 
         function printerInit(): Promise<void>;
