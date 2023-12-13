@@ -592,27 +592,22 @@ RCT_EXPORT_METHOD(printBarCode:(NSString *) str withType:(NSInteger)
     [RNBluetoothManager writeValue:toPrint withDelegate:self];
 }
 
-//nMode1:27,
-//nMode2:112,
-//nMode3:48,
-//nMode4:55
-//nMode5:121
-RCT_EXPORT_METHOD(openDrawer:(NSString *) str
-                   mode1:(NSInteger) nMode1
-                   mode2:(NSInteger) nMode2
-                   mode3:(NSInteger) nMode3
-                   mode4:(NSInteger) nMode4
-                   mode5:(NSInteger) nMode5
+//nMode:0,
+//nTime1:255
+//nTime2:255
+RCT_EXPORT_METHOD(openDrawer:(NSInteger) nMode
+                   nTime1:(NSInteger) nTime1
+                   nTime2:(NSInteger) nTime2
                    andResolver:(RCTPromiseResolveBlock) resolve
                    rejecter:(RCTPromiseRejectBlock) reject)
  {
     NSMutableData *toPrint = [[NSMutableData alloc] init];
     int8_t * command = malloc(5);
-     command[0] = nMode1;
-     command[1] = nMode2;
-     command[2] = nMode3;
-     command[3] = nMode4;
-     command[4] = nMode5;
+     command[0] = 27;
+     command[1] = 112;
+     command[2] = nMode;
+     command[3] = nTime1;
+     command[4] = nTime2;
     [toPrint appendBytes:command length:5];
     pendingReject = reject;
     pendingResolve = resolve;
