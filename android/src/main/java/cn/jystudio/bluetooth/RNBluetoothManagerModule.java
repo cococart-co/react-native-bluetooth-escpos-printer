@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.util.Log;
@@ -75,6 +76,9 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
     private BluetoothAdapter mBluetoothAdapter = null;
     // Member object for the services
     private BluetoothService mService = null;
+
+    // Countdown timer for scan timeout
+    private CountDownTimer scanTimer = null;
 
     public RNBluetoothManagerModule(ReactApplicationContext reactContext, BluetoothService bluetoothService) {
         super(reactContext);
@@ -169,7 +173,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
     }
 
     @ReactMethod
-    public void scanDevices(final Promise promise) {
+    public void scanDevices(int timeout, final Promise promise) {
         BluetoothAdapter adapter = this.getBluetoothAdapter();
         if(adapter == null){
             promise.reject(EVENT_BLUETOOTH_NOT_SUPPORT);
@@ -205,6 +209,14 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                 promise.reject("DISCOVER", "NOT_STARTED");
                 cancelDisCovery();
             } else {
+                scanTimer = new CountDownTimer(timeout, 1000) {
+                    public void onTick(long millisUntilFinished) {}
+
+                    public void onFinish() {
+                        cancelDisCovery();
+                    }
+                };
+                scanTimer.start();
                 promiseMap.put(PROMISE_SCAN, promise);
             }
         }

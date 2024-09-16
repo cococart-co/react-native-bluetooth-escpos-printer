@@ -128,7 +128,8 @@ RCT_EXPORT_METHOD(disableBluetooth:(RCTPromiseResolveBlock)resolve
     resolve(nil);
 }
 //scanDevices
-RCT_EXPORT_METHOD(scanDevices:(RCTPromiseResolveBlock)resolve
+RCT_EXPORT_METHOD(scanDevices:(int) timeout
+                  withResolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     @try{
@@ -160,7 +161,8 @@ RCT_EXPORT_METHOD(scanDevices:(RCTPromiseResolveBlock)resolve
             [timer invalidate];
             timer = nil;
         }
-        timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(callStop) userInfo:nil repeats:NO];
+        float ti = ((float)timeout) / 1000.0
+        timer = [NSTimer scheduledTimerWithTimeInterval:ti target:self selector:@selector(callStop) userInfo:nil repeats:NO];
     
     }
     @catch(NSException *exception){
