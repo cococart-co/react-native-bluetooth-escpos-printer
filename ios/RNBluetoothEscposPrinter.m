@@ -34,6 +34,7 @@ Byte V[] = {0x56};//V
 Byte A[] = {0x61};//a
 Byte E[] = {0x45};//E
 Byte G[] = {0x47};//G
+Byte B[] = {0x42};//B
 
 RCTPromiseResolveBlock pendingResolve;
 RCTPromiseRejectBlock pendingReject;
@@ -513,6 +514,25 @@ RCT_EXPORT_METHOD(printPic:(NSString *) base64encodeStr withOptions:(NSDictionar
         }
     }else{
         reject(@"COMMAND_NOT_SEND",@"COMMAND_NOT_SEND",nil);
+    }
+}
+
+RCT_EXPORT_METHOD(cut:(NSInteger) cut
+                  withResolver:(RCTPromiseResolveBlock) resolve
+                  rejecter:(RCTPromiseRejectBlock) reject)
+{
+    if(RNBluetoothManager.isConnected){
+        NSMutableData *data = [[NSMutableData alloc] init];
+        Byte cutBytes[] = {(int)cut};
+        [data appendBytes:GS length:1];
+        [data appendBytes:V length:1];
+        [data appendBytes:B length:1];
+        [data appendBytes:cutBytes length:1];
+        pendingReject = reject;
+        pendingResolve = resolve;
+        [RNBluetoothManager writeValue:data withDelegate:self];
+    }else{
+           reject(@"COMMAND_NOT_SEND",@"COMMAND_NOT_SEND",nil);
     }
 }
 

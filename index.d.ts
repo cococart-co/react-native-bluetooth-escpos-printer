@@ -111,6 +111,8 @@ declare module '@cococart/react-native-bluetooth-escpos-printer' {
          */
         function printPic(base64encodeStr: string, options: IPrintPicOptions): Promise<void>;
 
+        function cut(): Promise<void>;
+
         function rotate(): Promise<void>;
 
         function setBlob(weight: number): Promise<void>;
