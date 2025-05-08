@@ -524,7 +524,7 @@ RCT_EXPORT_METHOD(cut:(NSInteger) cut
     if(RNBluetoothManager.isConnected){
         NSMutableData *data = [[NSMutableData alloc] init];
         Byte cutBytes[] = {(int)cut};
-        [data appendBytes:GS length:1];
+        [data appendBytes:ESC_GS length:1];
         [data appendBytes:V length:1];
         [data appendBytes:B length:1];
         [data appendBytes:cutBytes length:1];
