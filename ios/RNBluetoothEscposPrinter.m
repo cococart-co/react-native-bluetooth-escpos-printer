@@ -517,13 +517,12 @@ RCT_EXPORT_METHOD(printPic:(NSString *) base64encodeStr withOptions:(NSDictionar
     }
 }
 
-RCT_EXPORT_METHOD(cut:(NSInteger) cut
-                  withResolver:(RCTPromiseResolveBlock) resolve
+RCT_EXPORT_METHOD(withResolver:(RCTPromiseResolveBlock) resolve
                   rejecter:(RCTPromiseRejectBlock) reject)
 {
     if(RNBluetoothManager.isConnected){
         NSMutableData *data = [[NSMutableData alloc] init];
-        Byte cutBytes[] = {(int)cut};
+        Byte cutBytes[] = {0x00};
         [data appendBytes:ESC_GS length:1];
         [data appendBytes:V length:1];
         [data appendBytes:B length:1];
