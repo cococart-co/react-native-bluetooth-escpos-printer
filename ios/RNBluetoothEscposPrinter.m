@@ -247,7 +247,7 @@ RCT_EXPORT_METHOD(printText:(NSString *) text withOptions:(NSDictionary *) optio
     [RNBluetoothManager writeValue:toSend withDelegate:delegate];
 }
 
-RCT_EXPORT_METHOD(rotate:(NSInteger *)rotate
+RCT_EXPORT_METHOD(rotate:(NSInteger)rotate
                   withResolver:(RCTPromiseResolveBlock) resolve rejecter:(RCTPromiseRejectBlock) reject)
 {
     if(RNBluetoothManager.isConnected){
@@ -271,7 +271,7 @@ RCT_EXPORT_METHOD(rotate:(NSInteger *)rotate
 //        }
 }
 
-RCT_EXPORT_METHOD(printerAlign:(NSInteger *) align
+RCT_EXPORT_METHOD(printerAlign:(NSInteger) align
                    withResolver:(RCTPromiseResolveBlock) resolve rejecter:(RCTPromiseRejectBlock) reject)
 {
     if(RNBluetoothManager.isConnected){
@@ -281,9 +281,10 @@ RCT_EXPORT_METHOD(printerAlign:(NSInteger *) align
         }else{
             //{ESC, 'a', 0x00 }
             NSMutableData *toSend = [[NSMutableData alloc] init];
+            Byte alignBytes[] = {(int)align};
             [toSend appendBytes:ESC length:sizeof(ESC)];
             [toSend appendBytes:A length:sizeof(A)];
-            [toSend appendBytes:&align length:sizeof(align)];
+            [toSend appendBytes:alignBytes length:sizeof(alignBytes)];
             pendingReject =reject;
             pendingResolve =resolve;
             [RNBluetoothManager writeValue:toSend withDelegate:self];
